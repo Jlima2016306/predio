@@ -46,17 +46,31 @@
               <div class="line r"></div>
             </div>
             <form class="register-form">
-              <input type="text" class="form-control" placeholder="name">
+              <input type="text" class="form-control" placeholder="name"
+              name="name" #name="ngModel" [(ngModel)]="user.name">
 
-              <input type="email" class="form-control" placeholder="Email">
-              <input type="text" class="form-control" placeholder="identification">
+              <input type="email" class="form-control" placeholder="Email"
+              name="email" #email="ngModel" [(ngModel)]="user.email">
 
-              <input type="password" required="true"  pattern=".{8,}" class="form-control" placeholder="Password">
-              <input type="password"  class="form-control" placeholder="Confirm Password">
-              <button class="btn btn-block btn-round">Register</button>
+              <input type="text" class="form-control" placeholder="phone_number"
+              name="phone_number" #phone_number="ngModel" [(ngModel)]="user.phone_number">
+
+              <input type="text" required="true"  class="form-control" placeholder="Identification"
+              name="identification" #identification="ngModel" [(ngModel)]="user.identification">
+
+
+              <input type="password" required="true"  pattern=".{8,}" class="form-control" placeholder="Password"
+              name="password" #password="ngModel" [(ngModel)]="user.password">
+
+
+
+              <input type="password"  class="form-control" placeholder="Confirm Password"
+              name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="user.password_confirmation">
+
+              <button class="btn btn-block btn-round" (click)="registrar()"> Register</button>
             </form>
             <div class="login">
-              <p style="color:rgb(0, 0, 0);">Already have an account? <a style="color:rgb(189, 75, 75);"href="#0">Log in</a>.</p>
+              <p style="color:rgb(0, 0, 0);">Already have an account? <a style="color:rgb(189, 75, 75);" routerLink="/Login">Log in</a>.</p>
             </div>
           </div>
         </div>
