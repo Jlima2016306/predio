@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/usuario.model';
 import { Observable } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,12 @@ export class UsuariosService {
 
   registro(usuario:any): Observable<any>{
 
+
+
     let params = JSON.stringify(usuario);
     console.log(params)
 
     return this._http.post(this.url + '/users',params, { headers: this.headersVariable })
-    // `${this.url}/registrarUsuario`
   }
 
 
@@ -34,6 +35,30 @@ export class UsuariosService {
     return this._http.post(this.url + '/login', params, {headers: this.headersVariable})
 
   }
+
+  tokenDatos(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/user',{headers: headersToken})
+
+  }
+
+  endSesion(): Observable<any>{
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+    console.log(headersToken)
+
+    return this._http.post(this.url + '/logout',headersToken,{headers: headersToken})
+
+  }
+
+
+
+
+
 
   getToken(){
     var token2 = localStorage.getItem('token')

@@ -36,6 +36,11 @@ export class LoginComponent implements OnInit {
         this.token = response.access_token;
 
         localStorage.setItem('token', this.token);
+
+        window.location.reload();
+
+
+
       },
       (error) => {
         console.log(<any>error);
@@ -59,7 +64,6 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-
 
       },
       (error) => {

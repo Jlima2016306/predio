@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit {
         //this._router.navigate(['/login'])
         this.login()
 
+
       },
       error=>{
         var key = 0
@@ -117,6 +118,7 @@ export class RegisterComponent implements OnInit {
           timer: 1500
         })
 
+        window.location.reload();
 
       },
       (error) => {
