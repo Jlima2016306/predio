@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   public user!: Usuario;
   public token!: any;
   public identidad!: any;
+  public type="password"
 
 
   constructor(
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit {
         this.getToken();
 
         Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'success',
           title: 'Se logeo correctamente',
           showConfirmButton: false,
@@ -94,6 +95,15 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  togglePass(){
+
+    var x = document.getElementById("myInput");
+    if (this.type === "password") {
+      this.type = "text";
+    } else {
+      this.type = "password";
+    }
+  }
 
 
 

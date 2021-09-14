@@ -13,8 +13,12 @@
             <form class="register-form" >
               <input type="email" class="form-control no-border" placeholder="Email"
               name="email" #email="ngModel" [(ngModel)]="user.email">>
-              <input type="password" class="form-control no-border" placeholder="Password"
+              <input type={{type}} class="form-control no-border" placeholder="Password"
               name="password" #password="ngModel" [(ngModel)]="user.password">
+              <div class="custom-control custom-checkbox mb-3">
+                <input class="custom-control-input" id="customCheck1" type="checkbox" (click)="togglePass()">
+                <label class="custom-control-label" for="customCheck1" style="color: black">Show Password</label>
+              </div>
               <button class="btn btn-block btn-round" (click)="login()">Iniciar</button>
             </form>
             <div class="forgot">

@@ -26,8 +26,8 @@
         </li>
 
         <li class="dropdown nav-item" *ngIf='rol== 1'>
-          <a routerLink="/" class="nav-link" data-toggle="dropdown" aria-expanded="false">
-            Ver mis Usuario </a>
+          <a routerLink="/Usuario" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+            Ver mis Usuarios </a>
         </li>
 
         <li class="dropdown nav-item" *ngIf='rol== 1'>
@@ -50,7 +50,7 @@
               <i class="nc-icon nc-tile-56"></i>
               Perfil
             </a>
-            <button  (click)='endSesion()' class="dropdown-item" data-scroll="true" data-id="#features" href="../sections.html#features">
+            <button routerLink="/Login"  (click)='endSesion()' class="dropdown-item" data-scroll="true" data-id="#features" href="../sections.html#features">
               <i class="nc-icon nc-settings"></i>
               Cerrar Sesion
             </button>

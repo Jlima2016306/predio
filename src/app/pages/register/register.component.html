@@ -9,35 +9,8 @@
 
 
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-7 col-12 ml-auto">
-          <div class="info info-horizontal">
-            <div class="icon">
-              <i class="nc-icon nc-send"></i>            </div>
-            <div class="description">
-              <h3>Encuentra la felicidad</h3>
-              <p>El carro de tus sueños te espera a un solo clic </p>
-            </div>
-          </div>
-          <div class="info info-horizontal">
-            <div class="icon">
-              <i class="fa fa-map-signs"></i>
-            </div>
-            <div class="description">
-              <h3> Sencillas busquedas </h3>
-              <p>No te preocupes estamos seguros de que tenemos el carro perfecto para ti, y encontrarlo esta un clic.</p>
-            </div>
-          </div>
-          <div class="info info-horizontal">
-            <div class="icon">
-              <i class="fa fa-user-secret"></i>
-            </div>
-            <div class="description">
-              <h3> Facíl de usar </h3>
-              <p>El carro de tus sueños sera la prueba más facil que tengas que pasar si usas nuestra aplicacion.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-5 col-12 mr-auto" >
+
+        <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
           <div class="card card-register" style="background-color: #E8E8DF;">
             <h3 class="card-title text-center">Register</h3><br>
 
@@ -58,16 +31,20 @@
               <input type="text" required="true"  class="form-control" placeholder="Identification"
               name="identification" #identification="ngModel" [(ngModel)]="user.identification">
 
-
-              <input type="password" required="true"  pattern=".{8,}" class="form-control" placeholder="Password"
+              <input id="myInput"type={{type}} [ngClass]="{'is-valid':comprobador(user.password),'is-invalid':!comprobador(user.password)}"  required="true"  pattern=".{8,}" class="form-control" placeholder="Password"
               name="password" #password="ngModel" [(ngModel)]="user.password">
 
 
+              <label style="color:black"> debe tener 8 letras, una minuscula y una mayuscula, un numero y un simbolo</label>
 
-              <input type="password"  class="form-control" placeholder="Confirm Password"
+
+              <input type={{type}} [ngClass]="{'is-valid': user.password== user.password_confirmation,'is-invalid': user.password != user.password_confirmation}" class="form-control" placeholder="Confirm Password"
               name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="user.password_confirmation">
-
-              <button class="btn btn-block btn-round" (click)="registrar()"> Register</button>
+              <div class="custom-control custom-checkbox mb-3">
+                <input class="custom-control-input" id="customCheck1" type="checkbox" (click)="togglePass()">
+                <label class="custom-control-label" for="customCheck1" style="color: black">Show Password</label>
+              </div>
+              <button class="btn btn-block btn-round" (click)="registrar()" [disabled]="!(comprobador(user.password) && (user.password === user.password_confirmation))"> Register</button>
             </form>
             <div class="login">
               <p style="color:rgb(0, 0, 0);">Already have an account? <a style="color:rgb(189, 75, 75);" routerLink="/Login">Log in</a>.</p>

@@ -56,6 +56,27 @@ export class UsuariosService {
   }
 
 
+  verUsuarios(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/users',{headers: headersToken})
+
+  }
+
+  CreaUsers(usuario:any): Observable<any>{
+    let params = JSON.stringify(usuario);
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+    console.log(headersToken)
+
+    return this._http.post(this.url + '/users',params,{headers: headersToken})
+
+  }
+
 
 
 
