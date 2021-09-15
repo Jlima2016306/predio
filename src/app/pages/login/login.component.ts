@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
 
         window.location.reload();
 
+        this._router.navigate(['/Inicio'])
 
 
       },
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
 
 
         this.getToken();
+        this._router.navigate(['/Inicio'])
 
         Swal.fire({
           position: 'center',

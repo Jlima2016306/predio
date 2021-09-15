@@ -95,6 +95,8 @@ export class RegisterComponent implements OnInit {
         this.token = response.access_token;
         console.log("pase")
         localStorage.setItem('token', this.token);
+        this._router.navigate(['/Inicio'])
+
       },
       (error) => {
         console.log(<any>error);
@@ -122,8 +124,8 @@ export class RegisterComponent implements OnInit {
         this.token = response.access_token;
         console.log("pase")
         localStorage.setItem('token', this.token);
+        this._router.navigate(['/Inicio'])
 
-        window.location.reload();
 
       },
       (error) => {

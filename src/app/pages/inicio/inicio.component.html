@@ -1,1 +1,89 @@
-<p>inicio works!</p>
+<div class="page-header page-header-xs" style="background-image: url('../assets/img/sections/clark-street-mercantile.jpg');">
+  <div class="filter"></div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+
+
+
+
+      <ul class="nav justify-content-center" style="margin-top:2em;font-size:2em;color:rgb(255, 166, 0)">
+        <li class="nav-item">
+          <a class="nav-link " [ngClass]="{h4:!Inicio,focus:!Inicio,infocus:Inicio}" href="javascript:;" (click)="CambiarVentana(1)"><strong>Inicio</strong></a>
+        </li>
+        <li class="nav-item infocus">
+          <a class="nav-link"   [ngClass]="{h4:!ver_mis_autos,focus:!ver_mis_autos,infocus:ver_mis_autos}"  href="javascript:;" (click)="CambiarVentana(3)"><strong>Ver Mis Autos</strong></a>
+        </li>
+        <li class="nav-item infocus">
+          <a class="nav-link "   [ngClass]="{h4:!Ver_en_venta,focus:!Ver_en_venta,infocus:Ver_en_venta}"  href="javascript:;" (click)="CambiarVentana(2)"><strong>Cosas</strong></a>
+        </li>
+      </ul>
+
+        <hr>
+    </div>
+
+  </div>
+
+
+
+  <div class='row'  [hidden]="Inicio">
+    <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 mb-4" *ngFor="let car of vehicles ">
+      <div class="card mb-4 border-danger " >
+        <div class="card-header text-center border-danger">
+
+          <img class="card-img-top" [src]='car.image' alt="Card image cap">
+
+          <strong>{{ car.model.name }}<br></strong>
+          {{ car.color }}
+          {{ car.fuel_type.name }}<br>
+
+          {{ car.year }}<br>
+
+          {{ car.price }}<br>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-warning"  data-toggle="modal" data-target="#EditUser">Ver</button>
+          </div>
+        </div>
+      </div>
+</div>
+  </div>
+
+  <div class="row" [hidden]="Inicio">
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of pagination" class="page-item">
+          <a  class="page-link" href="javascript:;" (click)="UsersPaginations(page.url)" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
+
+      </ul>
+    </nav>
+
+  </div>
+
+  <div class="row" [hidden]="Ver_en_venta">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      Ver_en_venta
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+
+  <div class="row " [hidden]="ver_mis_autos">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      ver_mis_autos
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div>

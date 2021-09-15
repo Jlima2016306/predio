@@ -12,7 +12,9 @@ const routes: Routes = [
   {path:'Login', component: LoginComponent},
   {path:'Usuario', component: UsuariosComponent},
   {path:'Perfil', component: PerfilComponent},
-  {path:'*', component: InicioComponent},
+  {path:'Inicio', component: InicioComponent},
+
+  {path:'**', component: InicioComponent},
 
 
 
