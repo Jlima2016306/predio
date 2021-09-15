@@ -39,6 +39,17 @@
         <button type="button" style="margin-right: 2em;"class="btn btn-lg btn-primary" (click)="busqueda()" >Iniciar Busqueda <i class="nc-icon nc-zoom-split"></i></button>
         <button type="button" class="btn btn-secondary btn-lg" (click)="Users()" >Refrescar</button>
 
+<div style="margin-left: 1em;">
+  <label  style="margin-left: 1em; text-align: right" ><strong>Items por Pag.  </strong></label>
+
+</div>
+<div>
+  <select  name="id" #id="ngModel" [(ngModel)]="totals.id" class="form-control form-control-sm  col-md-12">
+    <option  *ngFor="let number of pag" >{{number}}</option>
+  </select>
+</div>
+
+
         <hr>
 
 

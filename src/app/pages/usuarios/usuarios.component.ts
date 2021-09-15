@@ -30,8 +30,11 @@ export class UsuariosComponent implements OnInit{
   public identidad!: any;
   public users!: any;
   public type = "password"
+  public pag:any=[]
 
+  public totals!:Usuario;
   public pagination !: any;
+  public total!:any
 
 
   constructor(
@@ -41,15 +44,20 @@ export class UsuariosComponent implements OnInit{
     this.user = new Usuario(0,"","","","",3,"","");
     this.ModalUser =  new Usuario(0,"","","","",3,"","")
     this.busquedaData = new Usuario(0,"","","","", 0,"","")
-
+    this.totals = new Usuario(0,"","","","", 0,"","")
   }
   ngOnInit(): void {
     this.Users()
-
+    this.paginationNumber()
   }
 
   busqueda(){
+    console.log(this.totals.id)
+
     let busqueda="?"
+    if (this.totals.id != 0){
+       busqueda="?per_page="+this.totals.id+"&"
+    }
     if(this.busquedaData.email != "") busqueda= busqueda+"filter[email]=" + this.busquedaData.email
 
     if(this.busquedaData.identification != ""){
@@ -94,6 +102,7 @@ export class UsuariosComponent implements OnInit{
   }
 
 
+
   UsersPaginations(link:any){
     this._UsuariosService.verUsuariosPagination(link).subscribe(
       (response) => {
@@ -121,7 +130,7 @@ export class UsuariosComponent implements OnInit{
 
 
   Users(){
-    this._UsuariosService.verUsuarios().subscribe(
+    this._UsuariosService.verUsuarios(this.totals.id).subscribe(
       (response) => {
 
         Swal.fire({
@@ -308,6 +317,16 @@ export class UsuariosComponent implements OnInit{
     } else {
       this.type = "password";
     }
+  }
+
+
+  paginationNumber(){
+    var pagi=[{}]
+    for(var i=0;i<100;i++ ){
+      pagi[i] = i+1
+    }
+    this.pag = pagi
+    console.log(pagi)
   }
 
 

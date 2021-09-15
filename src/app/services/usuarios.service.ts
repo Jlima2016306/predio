@@ -56,13 +56,18 @@ export class UsuariosService {
   }
 
 
-  verUsuarios(): Observable<any>{
+  verUsuarios(total:any): Observable<any>{
+    var link = "/users"
 
+    if(total != 0){
+
+      link = "/users/?per_page="+total
+    }
 
 
     let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
 
-    return this._http.get(this.url + '/users',{headers: headersToken})
+    return this._http.get(this.url + link,{headers: headersToken})
 
   }
 
