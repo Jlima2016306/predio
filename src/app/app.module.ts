@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,9 +11,17 @@ import { RegisterComponent } from './pages/register/register.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './pages/login/login.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
+import { VentasComponent } from './pages/ventas/ventas.component';
+
+
 
 @NgModule({
   declarations: [
@@ -21,14 +30,21 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
     FooterComponent,
     RegisterComponent,
     LoginComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    PerfilComponent,
+    InicioComponent,
+    EstadisticasComponent,
+    VentasComponent
   ],
   imports: [
+
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

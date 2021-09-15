@@ -38,7 +38,7 @@
               <label style="color:black"> debe tener 8 letras, una minuscula y una mayuscula, un numero y un simbolo</label>
 
 
-              <input type={{type}} [ngClass]="{'is-valid': user.password== user.password_confirmation,'is-invalid': user.password != user.password_confirmation}" class="form-control" placeholder="Confirm Password"
+              <input type={{type}} [ngClass]="{'is-valid': user.password== user.password_confirmation ,'is-invalid': user.password != user.password_confirmation}" class="form-control" placeholder="Confirm Password"
               name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="user.password_confirmation">
               <div class="custom-control custom-checkbox mb-3">
                 <input class="custom-control-input" id="customCheck1" type="checkbox" (click)="togglePass()">

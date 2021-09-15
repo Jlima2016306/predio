@@ -66,6 +66,26 @@ export class UsuariosService {
 
   }
 
+
+  verUsuariosPagination(link:any): Observable<any>{
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(link,{headers: headersToken})
+
+  }
+
+  verUsuariosBusqueda(filters:any): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/users/'+filters,{headers: headersToken})
+
+  }
+
   CreaUsers(usuario:any): Observable<any>{
     let params = JSON.stringify(usuario);
 
@@ -76,6 +96,32 @@ export class UsuariosService {
     return this._http.post(this.url + '/users',params,{headers: headersToken})
 
   }
+
+  EditUser(usuario:any,id:any): Observable<any>{
+    let params = JSON.stringify(usuario);
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+    console.log(headersToken)
+
+    return this._http.put(this.url + '/users/'+id,params,{headers: headersToken})
+
+  }
+
+
+  verUsuario(id:any): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/users/'+id,{headers: headersToken})
+
+  }
+
+
+
+
 
 
 

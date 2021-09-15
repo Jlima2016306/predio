@@ -1,9 +1,12 @@
-<nav class="navbar navbar-expand-lg bg-white fixed-top nav-down navbar-transparent" color-on-scroll="500">
+<nav class="navbar navbar-expand-lg bg-white fixed-top nav-down navbar-transparent" >
   <div class="container">
     <div class="navbar-translate">
+
       <a class="navbar-brand" href="https://demos.creative-tim.com/paper-kit-2-pro/index.html" rel="tooltip" title="Paper Kit 2 PRO" data-placement="bottom" target="_blank">
         Predio Virtual
       </a>
+
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-bar bar1"></span>
         <span class="navbar-toggler-bar bar2"></span>
@@ -46,10 +49,10 @@
             Opciones
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-danger" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" data-scroll="true" data-id="#headers" href="../sections.html#headers">
+            <button routerLink="/Perfil" class="dropdown-item" data-scroll="true" data-id="#headers" href="../sections.html#headers">
               <i class="nc-icon nc-tile-56"></i>
               Perfil
-            </a>
+            </button>
             <button routerLink="/Login"  (click)='endSesion()' class="dropdown-item" data-scroll="true" data-id="#features" href="../sections.html#features">
               <i class="nc-icon nc-settings"></i>
               Cerrar Sesion
