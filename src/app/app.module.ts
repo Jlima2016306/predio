@@ -21,6 +21,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
 
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { VentasComponent } from './pages/ventas/ventas.component';
     HttpClientModule,
     CommonModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxSliderModule
 
   ],
   providers: [],

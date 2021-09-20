@@ -23,8 +23,8 @@ export class UsuariosComponent implements OnInit{
 
 
 
-  public user!: Usuario;
-  public ModalUser!: Usuario;
+  public user!: any;
+  public ModalUser!: any;
   public busquedaData!: Usuario
   public token!: any;
   public identidad!: any;

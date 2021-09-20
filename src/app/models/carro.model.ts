@@ -14,7 +14,8 @@ export class Carro{
     public fuel_type:Number,
     public seller:Number,
     public created_at:string,
-    public updated_at:string
+    public updated_at:string,
+    public marca:number,
 
 
 

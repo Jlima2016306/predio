@@ -19,13 +19,24 @@ export class CarrosService {
   constructor(public _http: HttpClient) { }
 
 
-  verCarros(): Observable<any>{
+  verCarros(total:any): Observable<any>{
     var vehicle = "/public/vehicles"
+
+    var link = ""
+
+    if(total != 0){
+
+      link = "/?per_page="+total
+    }
+    vehicle= vehicle + link
+
+
 
     let headersToken = this.headersVariable
 
     if(this.getToken() != null){
       var vehicle ="/vehicles"
+      vehicle= vehicle + link
 
 
       headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
@@ -34,6 +45,33 @@ export class CarrosService {
     return this._http.get(this.url + vehicle,{headers:  headersToken})
 
   }
+
+
+
+  verCarrorBusqueda(filters:any): Observable<any>{
+
+    var vehicle = "/public/vehicles"
+
+
+
+    let headersToken = this.headersVariable
+
+    if(this.getToken() != null){
+       vehicle ="/vehicles"
+
+
+      headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+    }
+
+    return this._http.get(this.url + vehicle+"/"+filters,{headers: headersToken})
+
+  }
+
+
+
+
+
+
 
   verCarrosPagination(link:any): Observable<any>{
 
@@ -63,6 +101,16 @@ console.log(link)
 
   }
 
+    verVehicle(id:any): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/vehicles/'+id,{headers: headersToken})
+
+  }
+
   EditUser(usuario:any,id:any): Observable<any>{
     let params = JSON.stringify(usuario);
 
@@ -75,15 +123,28 @@ console.log(link)
   }
 
 
-  verUsuario(id:any): Observable<any>{
+  verMarca(): Observable<any>{
 
 
-
-    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
-
-    return this._http.get(this.url + '/users/'+id,{headers: headersToken})
+    return this._http.get(this.url + '/brands',{headers: this.headersVariable})
 
   }
+
+  verModelo(): Observable<any>{
+
+    return this._http.get(this.url + '/models',{headers:this.headersVariable})
+
+  }
+
+  verCombustible(): Observable<any>{
+
+
+
+
+    return this._http.get(this.url + '/fuel_types',{headers:this.headersVariable})
+
+  }
+
 
 
 

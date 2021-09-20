@@ -28,8 +28,210 @@
 
 
 
+
+<div style="background-color: rgb(255, 255, 255);text-align:center" class="row"  [hidden]="Inicio">
+
+  <hr>
+
+
+
+
+
+  <div style="margin: 1em ;"  class="input-group mb-3">
+    <h2 style="text-align:center; color:rgb(255, 166, 0);margin: 1em 40%"><strong>Buscar
+    </strong></h2>
+
+    <div style="margin: 1em 44%" class="custom-control custom-switch">
+
+      <input (click)="buscarOn()" type="checkbox" class="custom-control-input" id="customSwitches">
+      <label class="custom-control-label" for="customSwitches">On</label>
+    </div>
+
+
+
+<!-- barra de busqueda-->
+<div class="buscadores" [ngClass]='{buscar:buscar,inbuscar:!buscar}' [hidden]='buscar'>
+
+
+    <div  class="input-group input-group-sm mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Ubicacion</span>
+      <input type="text" class="form-control form-control-sm  col-md-5 " placeholder="" aria-label="location" aria-describedby="basic-addon1"
+      name="location"  #location="ngModel" [(ngModel)]="busquedaData.location">
+
+
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">color</span>
+      <input type="text" class="form-control form-control-sm  " placeholder="" aria-label="Username" aria-describedby="basic-addon1"
+      name="color"  #color="ngModel" [(ngModel)]="busquedaData.color">
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text">Rango de Precio: Entre</span>
+
+      <input type="number" [(ngModel)]="PrecioRange.min"  class="form-control form-control-sm  col-md-1" placeholder="Precio Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number" [(ngModel)]="PrecioRange.max" class="form-control form-control-sm col-md-1" placeholder="Precio maximo" aria-label="Server">
+
+
+      <ngx-slider [(value)]="PrecioRange.min" [(highValue)]="PrecioRange.max" [options]="options"></ngx-slider>
+      <label>{{PrecioRange.max}}</label>
+
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text">Rango de Motor: Entre</span>
+
+      <input type="number"  [(ngModel)]="MotorRange.min" class="form-control form-control-sm  col-md-1" placeholder="Motor Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"   [(ngModel)]="MotorRange.max"  class="form-control form-control-sm  col-md-1" placeholder="Motor maximo" aria-label="Server">
+
+      <ngx-slider [(value)]="MotorRange.min" [(highValue)]="MotorRange.max" [options]="options"></ngx-slider>
+      <label>{{MotorRange.max}}</label>
+
+    </div>
+
+
+
+
+    <div class="input-group mb-3">
+      <span class="input-group-text">Rango de Años: Entre</span>
+
+      <input type="number"  [(ngModel)]="AnnosRange.min" class="form-control form-control-sm col-md-1" placeholder="Año Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"  [(ngModel)]="AnnosRange.max" class="form-control form-control-sm  col-md-1" placeholder="Año maximo" aria-label="Server">
+
+
+      <ngx-slider [(value)]="AnnosRange.min" [(highValue)]="AnnosRange.max" [options]="optionsAnnos"></ngx-slider>
+      <label>{{AnnosRange.max}}</label>
+
+
+    </div>
+
+
+    <div class="input-group mb-3">
+      <span class="input-group-text">Rango de Cilindraje: Entre</span>
+
+      <input type="number"  [(ngModel)]="CilindrajeRange.min" class="form-control form-control-sm  col-md-1" placeholder=" Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"  [(ngModel)]="CilindrajeRange.max"  class="form-control form-control-sm col-md-1" placeholder=" maximo" aria-label="Server">
+
+
+      <ngx-slider [(value)]="CilindrajeRange.min" [(highValue)]="CilindrajeRange.max" [options]="optionsPuertas"></ngx-slider>
+      <label>{{PrecioRange.max}}</label>
+
+    </div>
+
+
+    <div class="input-group mb-3">
+      <span class="input-group-text">Rango de Puertas: Entre</span>
+
+      <input type="number"  [(ngModel)]="PuertasRange.min" class="form-control form-control-sm col-md-1" placeholder="Puertas Minimas" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"  [(ngModel)]="PuertasRange.max" class="form-control form-control-sm  col-md-1" placeholder="Puertas maximas" aria-label="Server">
+
+
+      <ngx-slider [(value)]="PuertasRange.min" [(highValue)]="PuertasRange.max" [options]="optionsPuertas"></ngx-slider>
+      <label>{{PrecioRange.max}}</label>
+
+    </div>
+
+
+
+    <div class="input-group mb-3">
+
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Combustible</span>
+      <select name="role_id" #role_id="ngModel" [(ngModel)]="busquedaData.fuel_type" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+        <option  value="0" selected>Ninguno</option>
+        <option *ngFor="let combustible of combustible" value={{combustible.fuel_type_id}}>{{combustible.name}}</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Marca</span>
+      <select name="role_id" #role_id="ngModel" [(ngModel)]="busquedaData.marca" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+        <option  value="0" selected>Ninguno</option>
+        <option  *ngFor="let marca of marcas" value={{marca.brand_id}}>{{marca.name}}</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Modelo</span>
+      <select name="role_id" #role_id="ngModel" [(ngModel)]="busquedaData.model" class="custom-select" id="inputGroupSelect01">
+        <option  value="0" selected>Ninguno</option>
+        <option *ngFor="let model of modelo" value={{model.model_id}}>{{model.name}}</option>
+      </select>
+    </div>
+
+    <button type="button" style="margin-right: 2em;"class="btn btn-lg btn-primary" (click)="busqueda();vehicles = null" >Iniciar Busqueda <i class="nc-icon nc-zoom-split"></i></button>
+    <button type="button" class="btn btn-secondary btn-lg" (click)="verCarros();vehicles = null" >Refrescar</button>
+
+
+
+
+          <hr>
+
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+</div>
+
+  <div class="row"  style="margin: 2em " [hidden]="Inicio">
+    <div style="margin-right: 0.4em;">
+      <label  style="margin-left: 1em; text-align: right" ><strong>Ordenar Por  </strong></label>
+
+    </div>
+    <div>
+      <select (change)="busqueda();vehicles = null" name="value" #value="ngModel" [(ngModel)]="valuesB.value" class="form-control form-control-sm  col-md-12">
+        <option    value="" selected>Ninguno  </option>
+
+        <option    value="price" >Precio </option>
+        <option    value="cylinders" >cilindros  </option>
+        <option    value="doors" >puertas </option>
+        <option    value="year" >vehículos por año </option>
+        <option    value="created_at" >Ingreso </option>
+        <option    value="engine" >CC del motor. </option>
+
+
+      </select>
+    </div>
+    <div>
+      <select (change)="busqueda();vehicles = null" name="sort" #sort="ngModel" [(ngModel)]="valuesB.sort" class="form-control form-control-sm  col-md-12">
+        <option    value="" selected>ascendente  </option>
+        <option    value="-" >descendente </option>
+
+
+
+      </select>
+    </div>
+
+
+
+  </div>
+
+
+
   <div class='row'  [hidden]="Inicio">
+
+      <img *ngIf="vehicles == null" style="width: 20%; height:20%;display:block;
+      margin:auto;" class="card-img-top" src='../../assets/cargando.gif' alt="Card image cap">
+
+
+
     <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 mb-4" *ngFor="let car of vehicles ">
+
+
+
       <div class="card mb-4 border-danger " >
         <div class="card-header text-center border-danger">
 
@@ -44,11 +246,11 @@
           {{ car.price }}<br>
 
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-warning"  data-toggle="modal" data-target="#EditUser">Ver</button>
+            <button type="button" class="btn btn-outline-warning"   data-toggle="modal" data-target="#verUsuario" (click)="VerUser(car.vehicle_id);">Ver</button>
           </div>
         </div>
       </div>
-</div>
+    </div>
   </div>
 
   <div class="row" [hidden]="Inicio">
@@ -56,10 +258,24 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of pagination" class="page-item">
-          <a  class="page-link" href="javascript:;" (click)="UsersPaginations(page.url)" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
+          <a  class="page-link" href="javascript:;" (click)="UsersPaginations(page.url);vehicles = null" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
 
       </ul>
     </nav>
+
+    <div style="margin-right: 0.4em;">
+      <label  style="margin-left: 1em; text-align: right" ><strong>Ver  </strong></label>
+
+    </div>
+    <div>
+      <select (change)="verCarros();vehicles = null" name="id" #id="ngModel" [(ngModel)]="totals.id" class="form-control form-control-sm  col-md-12">
+        <option    *ngFor="let number of pag" >{{number}}</option>
+      </select>
+    </div>
+    <div style="margin-left: 0em;">
+      <label  style="margin-left: 0.4em; text-align: right" ><strong> por Pag.  </strong></label>
+
+    </div>
 
   </div>
 
@@ -84,6 +300,93 @@
     </div>
     <div class="col-sm">
       One of three columns
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="verUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Ver Carro</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="ModalVehicles = null" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <img *ngIf="ModalVehicles == null" style="width: 20%; height:20%;display:block;
+        margin:auto;" class="card-img-top" src='../../assets/cargando.gif' alt="Card image cap">
+
+        <form class="register-form"  *ngIf="ModalVehicles != null">
+
+          <div class="row ">
+            <div class="col-sm">
+              <strong><label>Brand	</label></strong>
+              <p >{{ModalVehicles?.model?.brand?.name	}}</p>
+              <strong><label>Model</label></strong>
+              <p >{{ModalVehicles?.model?.name}}</p>
+              <strong><label>year</label></strong>
+              <p >{{ModalVehicles?.year}}</p>
+              <strong><label>color</label></strong>
+              <p >{{ModalVehicles?.color}}</p>
+
+          </div>
+            <div class="col-sm">
+              <img class="card-img-top" [src]='ModalVehicles?.image' alt="Card image cap">
+
+            </div>
+
+          </div>
+
+          <div class="row ">
+            <div class="col-sm">
+              <strong><label>location</label></strong>
+              <p >{{ModalVehicles?.location}}</p>
+              <strong><label>engine</label></strong>
+              <p >{{ModalVehicles?.engine}}</p>
+
+
+          </div>
+
+          <div class="col-sm">
+            <strong><label>cylinders	</label></strong>
+            <p >{{ModalVehicles?.cylinders}}</p>
+            <strong><label>doors</label></strong>
+            <p >{{ModalVehicles?.doors}}</p>
+            <strong><label>fuel_type	</label></strong>
+            <p >{{ModalVehicles?.fuel_type?.name	}}</p>
+          </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+
+              <strong><label>description</label></strong>
+              <p >{{ModalVehicles?.description}}</p>
+              <strong><label>price</label></strong>
+              <p >{{ModalVehicles?.price}}</p>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer"  *ngIf="ModalVehicles != null">
+        <strong><label>Vendedor</label></strong>
+        <p >{{ModalVehicles?.seller?.name}}</p>
+
+      </div>
+
     </div>
   </div>
 </div>
