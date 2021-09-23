@@ -31,4 +31,29 @@ export class dataSort{
     public value: any,
     public sort: any,
   ){}
+
 }
+
+export class ventas{
+  constructor(
+    public vehicle_id	: any,
+    public buyer_id: any,
+  ){}
+
+}
+
+export class ventasBusqueda{
+  constructor(
+    public buyer_id		: any,
+    public seller_id: any,
+    public model_id	: any,
+    public brand_id	: any,
+    public amountRange	: any,
+    public dateRange: any,
+
+  ){}
+
+}
+
+
+

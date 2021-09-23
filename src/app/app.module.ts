@@ -22,7 +22,9 @@ import { EstadisticasComponent } from './pages/estadisticas/estadisticas.compone
 import { VentasComponent } from './pages/ventas/ventas.component';
 
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DatepickerModule } from 'ng2-datepicker';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     CommonModule,
     FormsModule,
     NgxPaginationModule,
-    NgxSliderModule
+    NgxSliderModule,
+    BrowserAnimationsModule,
+    DatepickerModule
 
   ],
   providers: [],

@@ -12,11 +12,45 @@ export class CarrosService {
   public identidad!: any;
 
   public token!: any;
+  public variablesheader = new HttpHeaders();
   public headersVariable = new HttpHeaders().set('Content-Type', 'application/json');
 
 
 
   constructor(public _http: HttpClient) { }
+
+
+  VenderVehicle(vehicle:any): Observable<any>{
+
+    let params = JSON.stringify(vehicle);
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.post(this.url + '/sales',params,{headers: headersToken})
+
+  }
+
+  VerVentasVehicle(filters:any): Observable<any>{
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/sales/'+filters,{headers: headersToken})
+
+  }
+
+
+  CrearVehicle(vehicle:any): Observable<any>{
+
+    let params = JSON.stringify(vehicle);
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.post(this.url + '/vehicles',params,{headers: headersToken})
+
+  }
 
 
   verCarros(total:any): Observable<any>{
@@ -62,6 +96,7 @@ export class CarrosService {
 
       headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
     }
+     console.log(vehicle)
 
     return this._http.get(this.url + vehicle+"/"+filters,{headers: headersToken})
 
@@ -90,16 +125,29 @@ console.log(link)
 
 
 
-  CreaUsers(usuario:any): Observable<any>{
-    let params = JSON.stringify(usuario);
+  subirImagen(archivo:any): Observable<any>{
+
+    const formularioDeDatos = new FormData();
 
 
-    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
-    console.log(headersToken)
+    formularioDeDatos.append('image', archivo)
 
-    return this._http.post(this.url + '/users',params,{headers: headersToken})
+
+      var filesHttpOptions = {
+
+        headers: new HttpHeaders({
+            Authorization: 'Bearer ' + this.getToken(),
+
+        }).set("Access-Control-Allow-Origin", "*")
+        }
+
+
+    return this._http.post(this.url + '/uploads',  formularioDeDatos, filesHttpOptions)
 
   }
+
+
+
 
     verVehicle(id:any): Observable<any>{
 
@@ -111,16 +159,7 @@ console.log(link)
 
   }
 
-  EditUser(usuario:any,id:any): Observable<any>{
-    let params = JSON.stringify(usuario);
 
-
-    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
-    console.log(headersToken)
-
-    return this._http.put(this.url + '/users/'+id,params,{headers: headersToken})
-
-  }
 
 
   verMarca(): Observable<any>{
@@ -160,7 +199,13 @@ console.log(link)
   }
 
 
+
+  //subir imagenASubir
+
+
 }
+
+
 
 
 
