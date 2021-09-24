@@ -1,2 +1,3 @@
 # predio
-Prueba de front end angular. Lumations Service
+Prueba de front end angular.
+
