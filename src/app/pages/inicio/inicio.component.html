@@ -11,14 +11,12 @@
 
       <ul class="nav justify-content-center" style="margin-top:2em;font-size:2em;color:rgb(255, 166, 0)">
         <li class="nav-item">
-          <a class="nav-link " [ngClass]="{h4:!Inicio,focus:!Inicio,infocus:Inicio}" href="javascript:;" (click)="CambiarVentana(1);verCarros()"><strong>Inicio</strong></a>
+          <a class="nav-link " [ngClass]="{h4:!Inicio,focus:!Inicio,infocus:Inicio}" href="javascript:;" (click)="CambiarVentana(1);verCarros();"><strong>Inicio</strong></a>
         </li>
         <li *ngIf="rol == 1 ||rol == 2 "  class="nav-item infocus">
           <a class="nav-link"  [ngClass]="{h4:!ver_mis_autos,focus:!ver_mis_autos,infocus:ver_mis_autos}"  href="javascript:;" (click)="CambiarVentana(3);verVentas()"><strong>Ver Mis ventas</strong></a>
         </li>
-        <li class="nav-item infocus">
-          <a class="nav-link "   [ngClass]="{h4:!Ver_en_venta,focus:!Ver_en_venta,infocus:Ver_en_venta}"  href="javascript:;" (click)="CambiarVentana(2)"><strong>Cosas</strong></a>
-        </li>
+
       </ul>
 
         <hr>
@@ -50,6 +48,25 @@
 <!-- barra de busqueda-->
 <div class="buscadores" [ngClass]='{buscar:buscar,inbuscar:!buscar}' [hidden]='buscar'>
 
+  <div class="form-group" *ngIf="rol == 1">
+    <label for="exampleInputEmail1">Vendedor </label>
+
+    <input  (change)="UsuariosV()" style="text-align:center;
+    box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+    name="vende" #vende="ngModel" [(ngModel)]="emailV">
+    <small id="emailHelp" class="form-text text-muted">Coloque el gmail del vendedor.</small>
+
+
+    <select name="sellerV" #sellerV="ngModel" [(ngModel)]="Vendedor" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+      <option  value="0" selected>Ninguno</option>
+
+      <option  *ngFor="let use of VendedoresV" value={{use.id}}>{{use.name}}</option>
+    </select>
+    <small id="emailHelp" class="form-text text-muted">Escoja al Vendedor.</small>
+
+
+
+  </div>
 
     <div  class="input-group input-group-sm mb-3">
       <span class="input-group-text" id="inputGroup-sizing-sm">Ubicacion</span>
@@ -289,19 +306,19 @@
         <div class="form-group" *ngIf="rol == 1">
           <label for="exampleInputEmail1">Vendedor </label>
 
+          <input  (change)="UsuariosV()" style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="identification" #identification="ngModel" [(ngModel)]="emailV">
+          <small id="emailHelp" class="form-text text-muted">Coloque el gmail del vendedor.</small>
+
+
           <select name="seller" #seller="ngModel" [(ngModel)]="ventasBusqueda.seller_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
             <option  value="0" selected>Ninguno</option>
 
             <option  *ngFor="let use of VendedoresV" value={{use.id}}>{{use.name}}</option>
           </select>
+          <small id="emailHelp" class="form-text text-muted">Escoja al Vendedor.</small>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of paginationUV" class="page-item">
-                <a  class="page-link" href="javascript:;" (click)="UsersVentasPaginations(page.url,2);vehicles = null" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
-
-            </ul>
-          </nav>
 
 
         </div>
@@ -309,19 +326,19 @@
         <div class="form-group">
           <label for="exampleInputEmail1">Comprador </label>
 
+          <input  (change)="UsuariosV()" style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="comprador" #comprador="ngModel" [(ngModel)]="emailC">
+          <small id="emailHelp" class="form-text text-muted">Coloque el gmail del Comprador.</small>
+
+
           <select name="seller" #seller="ngModel" [(ngModel)]="ventasBusqueda.buyer_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
             <option  value="0" selected>Ninguno</option>
 
             <option  *ngFor="let use of CompradoresV" value={{use.id}}>{{use.name}}</option>
           </select>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of paginationUC" class="page-item">
-                <a  class="page-link" href="javascript:;" (click)="UsersVentasPaginations(page.url,3);vehicles = null" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
-
-            </ul>
-          </nav>
+          <small id="emailHelp" class="form-text text-muted">Escoja al comprador.</small>
 
         </div>
 
@@ -369,6 +386,7 @@
 
     <button type="button" style="margin-right: 2em;"class="btn btn-lg btn-primary" (click)="verVentas();vehicles = null" >Iniciar Busqueda <i class="nc-icon nc-zoom-split"></i></button>
 
+    <button type="button" class="btn btn-secondary btn-lg" (click)="verVentasR()" >Refrescar</button>
 
     </div>
 
@@ -462,6 +480,7 @@
 
               </div>
 
+
             </div>
 
             <div class="row">
@@ -475,9 +494,9 @@
               </div>
             </div>
 
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button *ngIf="(rol == 2) && car?.sold == true" type="button" class="btn btn-outline-warning"   data-toggle="modal" data-target="#vender" disabled>Vendido</button>
-            </div>
+            <strong><label>Vendedor</label></strong>
+            <p >{{car?.vehicle?.seller?.name}}</p>
+
           </div>
         </div>
       </div>
@@ -746,19 +765,19 @@
         <div class="form-group">
           <label for="exampleInputEmail1">Vendedor </label>
 
+          <input  (change)="UsuariosV()" style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="identification" #identification="ngModel" [(ngModel)]="email">
+          <small id="emailHelp" class="form-text text-muted">Coloque el gmail del vendedor.</small>
+
+
           <select name="seller" #seller="ngModel" [(ngModel)]="CarroModel.seller_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
-            <option  *ngFor="let use of user" value={{use.id}}>{{use.name}}</option>
+            <option  *ngFor="let use of Usuario" value={{use.id}}>{{use.name}}</option>
           </select>
 
 
+          <small id="emailHelp" class="form-text text-muted">Elija al usuario</small>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of paginationU" class="page-item">
-                <a  class="page-link" href="javascript:;" (click)="UsersVPaginations(page.url);" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
-
-            </ul>
-          </nav>
           <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
         </div>
       </form>
@@ -867,19 +886,17 @@
               <div class="form-group">
                 <h3 for="exampleInputEmail1">Comprador </h3>
 
+                <input  (change)="UsuariosV()" style="text-align:center;
+                box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+                name="identification" #identification="ngModel" [(ngModel)]="email">
+                <small id="emailHelp" class="form-text text-muted">Cologe el gmail.</small>
+
+
 
 
                 <select name="seller" #seller="ngModel" [(ngModel)]="venta.buyer_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
-                  <option  *ngFor="let use of user" value={{use.id}}>{{use.name}}</option>
+                  <option  *ngFor="let use of Usuario" value={{use.id}}>{{use.name}}</option>
                 </select>
-
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center">
-                    <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of paginationU" class="page-item">
-                      <a  class="page-link" href="javascript:;" (click)="UsersVPaginations(page.url);" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
-
-                  </ul>
-                </nav>
 
 
 

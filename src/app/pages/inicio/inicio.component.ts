@@ -146,6 +146,14 @@ export class InicioComponent implements OnInit  {
   public rol:any= null;;
 
   //data de busqueda
+  public email:any;
+
+  public Vendedor = 0
+
+  public emailV:any;
+  public emailC:any;
+
+
   public combustible: any;
   public modelo:any;
   public marcas:any;
@@ -159,6 +167,7 @@ export class InicioComponent implements OnInit  {
   public file:any =[]
   public previsualizacion!:any
 
+
   //
 
   public CarroModel!: Carro
@@ -170,6 +179,9 @@ export class InicioComponent implements OnInit  {
   public CompradoresV!:any;
   public VendedoresV!:any;
   public MontoRango!:any
+
+
+  public Usuario!:any
 
   constructor(
     private _CarrosService: CarrosService,
@@ -200,6 +212,8 @@ export class InicioComponent implements OnInit  {
 
     this.venta= new ventas("","")
     this.ventasBusqueda= new ventasBusqueda(0,0,0,0,"","")
+
+
   }
 
   ngOnInit(): void {
@@ -209,6 +223,76 @@ export class InicioComponent implements OnInit  {
     this.obtenerIdentidad()
     this.Usuarios()
   }
+
+
+
+
+
+
+
+  //Usuarios  "filter[email]="
+
+
+  UsuariosV(){
+
+    var rol =  localStorage.getItem('identidad')
+  var busqueda="?per_page=15&filter[role_id]=2&filter[email]="+ this.email
+  if(rol == "2")  busqueda="?per_page=15&filter[role_id]=3&filter[email]="+ this.email
+
+  this._UsuariosService.verUsuariosBusqueda(busqueda).subscribe(
+    (response) => {
+      console.log(response)
+
+      this.Usuario = response.data
+
+      this.paginationU = response.meta.links
+      console.log(response.meta.links)
+
+
+
+    },
+    (error) => {
+      console.log(<any>error);
+    }
+  )
+  busqueda="?per_page=15&filter[role_id]=2&filter[email]="+ this.emailV
+
+  this._UsuariosService.verUsuariosBusqueda(busqueda).subscribe(
+    (response) => {
+
+
+      this.VendedoresV = response.data
+
+      this.paginationUV = response.meta.links
+      console.log(response.meta.links)
+
+
+    },
+    (error) => {
+      console.log(<any>error);
+    }
+  )
+  busqueda="?per_page=15&filter[role_id]=3&filter[email]="+ this.emailC
+
+  this._UsuariosService.verUsuariosBusqueda(busqueda).subscribe(
+    (response) => {
+
+
+      this.CompradoresV = response.data
+
+      this.paginationUC = response.meta.links
+      console.log(response.meta.links)
+
+
+    },
+    (error) => {
+      console.log(<any>error);
+    }
+  )
+
+}
+
+
 
 
   Vender(id:any){
@@ -274,6 +358,19 @@ export class InicioComponent implements OnInit  {
 
       }
 
+      this._CarrosService.VerVentasVehicle(filters).subscribe((response)=>{
+        this.ventaModel = response.data
+        console.log(this.ventaModel)
+    },
+    (err)=>{
+      console.log(<any>err)
+    })
+
+  }
+
+  verVentasR(){
+
+    var filters = '?'
       this._CarrosService.VerVentasVehicle(filters).subscribe((response)=>{
         this.ventaModel = response.data
         console.log(this.ventaModel)
@@ -382,40 +479,8 @@ export class InicioComponent implements OnInit  {
         console.log(<any>error);
       }
     )
-    busqueda="?per_page=15&filter[role_id]=2"
-
-    this._UsuariosService.verUsuariosBusqueda(busqueda).subscribe(
-      (response) => {
 
 
-        this.VendedoresV = response.data
-
-        this.paginationUV = response.meta.links
-        console.log(response.meta.links)
-
-
-      },
-      (error) => {
-        console.log(<any>error);
-      }
-    )
-    busqueda="?per_page=15&filter[role_id]=3"
-
-    this._UsuariosService.verUsuariosBusqueda(busqueda).subscribe(
-      (response) => {
-
-
-        this.CompradoresV = response.data
-
-        this.paginationUC = response.meta.links
-        console.log(response.meta.links)
-
-
-      },
-      (error) => {
-        console.log(<any>error);
-      }
-    )
 
   }
 
@@ -635,7 +700,11 @@ export class InicioComponent implements OnInit  {
     busqueda= busqueda + "filter[model_id]="+ this.busquedaData.model_id}
 
 
+    if(this.Vendedor!= 0){
 
+      if(busqueda != "?") busqueda= busqueda+"&"
+      busqueda = busqueda+ "filter[seller_id]="+this.Vendedor
+    }
 
 
 

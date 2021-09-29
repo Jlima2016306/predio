@@ -25,6 +25,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DatepickerModule } from 'ng2-datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ChartsModule } from '@rinminase/ng-charts';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { DatepickerModule } from 'ng2-datepicker';
     NgxPaginationModule,
     NgxSliderModule,
     BrowserAnimationsModule,
-    DatepickerModule
+    DatepickerModule,
+    MatDatepickerModule,
+    ChartsModule
 
   ],
   providers: [],

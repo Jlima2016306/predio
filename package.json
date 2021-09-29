@@ -21,9 +21,14 @@
     "@angular/platform-browser": "~12.0.1",
     "@angular/platform-browser-dynamic": "~12.0.1",
     "@angular/router": "~12.0.1",
+    "@rinminase/ng-charts": "^4.1.0",
+    "@types/chart.js": "^2.9.33",
     "angular-material-datepicker": "^1.0.2",
     "bootstrap-switch": "^3.4.0",
+    "chart.js": "^2.9.4",
     "detect-passive-events": "^2.0.3",
+    "lodash-es": "^4.17.21",
+    "ng2-charts": "^2.2.3",
     "ng2-datepicker": "^12.0.0",
     "ngx-pagination": "^5.1.1",
     "ngx-slider": "0.0.5",
@@ -32,7 +37,7 @@
     "rxjs-compat": "^6.6.7",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.1.5",
-    "tslib": "^2.1.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

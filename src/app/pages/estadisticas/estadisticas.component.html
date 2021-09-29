@@ -1,1 +1,220 @@
-<p>estadisticas works!</p>
+<div class="page-header page-header-xs" style="background-image: url('../assets/img/sections/clark-street-mercantile.jpg');margin-bottom:2em">
+  <div class="filter"></div>
+</div>
+
+
+<h1 style="text-align:center; color:rgb(255, 166, 0);  margin: 0 auto;
+"><strong>Estadisticas
+</strong></h1>
+<div class="container" >
+  <div class="row">
+    <div class="col-sm">
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" (click)="limiarReporte()">
+        Reporte
+      </button>
+
+<div class="container" >
+  <div class="row">
+
+    <div class="col-sm">
+      <h2 style="text-align:center; color:rgb(255, 166, 0);  margin: 0 auto;
+      "><strong>Ventas
+      </strong></h2>
+
+
+      <div style="text-align:center;margin:2em 2em">
+
+
+        <h4 style="text-align:center; color:rgb(255, 166, 0);  margin: 0 auto;
+        "><strong>Estadisticas de ventas por:
+        </strong></h4>
+
+      <select [(ngModel)]="chartInicial">
+        <ng-container *ngIf="estado === true">
+          <option *ngFor="let tipo of chartTypes" [value]="tipo.nombreTipo">{{ tipo.texto }}</option>
+        </ng-container>
+      </select>
+
+
+      <select (change)="ventas()" name="sort" #sort="ngModel" [(ngModel)]="MedicionTiempo" >
+          <option  value = 1>Años </option>
+          <option value = 2>Meses </option>
+
+      </select>
+
+      <select *ngIf="MedicionTiempo == 2" (change)="ventas()" name="sort" #sort="ngModel" [(ngModel)]="mes">
+        <ng-container >
+          <option *ngFor="let tipo of meses" [value]="tipo">{{ tipo}}</option>
+        </ng-container>
+      </select>
+
+      <select *ngIf="MedicionTiempo == 1" (change)="ventas()" name="sort" #sort="ngModel" [(ngModel)]="anno">
+        <ng-container >
+          <option *ngFor="let tipo of annos" [value]="tipo">{{ tipo }}</option>
+        </ng-container>
+      </select>
+
+
+    </div>
+
+
+
+
+      <div style="display: block;max-width:50em;  margin: 0 auto;margin-bottom: 10em;box-shadow:0.4em 0.4em 0.4em rgb(97, 97, 90, 0.8);
+
+      ">
+        <canvas baseChart
+          [chartType]="chartInicial"
+          [data]="chartData"
+          [colors]="chartColors"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [plugins]="chartPlugins"
+          [legend]="chartLegend">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container" >
+  <div class="row">
+
+    <div class="col-sm">
+      <h4 style="text-align:center; color:rgb(255, 166, 0);  margin: 0 auto;
+      "><strong>Estadisticas por vendedor
+      </strong></h4>
+
+
+      <select [(ngModel)]="chartInicialV">
+        <ng-container *ngIf="estado === true">
+          <option *ngFor="let tipo of chartTypes" [value]="tipo.nombreTipo">{{ tipo.texto }}</option>
+        </ng-container>
+      </select>
+
+
+
+
+
+      <div style="display: block;max-width:50em;  margin: 0 auto;margin-bottom: 10em;box-shadow:0.4em 0.4em 0.4em rgb(97, 97, 90, 0.8);
+
+      ">
+        <canvas baseChart
+          [chartType]="chartInicialV"
+          [data]="chartDataV"
+          [colors]="chartColorsV"
+          [labels]="chartLabelsV"
+          [options]="chartOptionsV"
+          [plugins]="chartPluginsV"
+          [legend]="chartLegendV">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    </div>
+
+    <div class="col-sm">
+      <div class="card text-center bg-success  white">
+
+        <div class="card-body">
+          <h3 class="card-title white"><i class="nc-icon nc-money-coins"></i>Promedio de ventas<i class="nc-icon nc-money-coins"></i></h3>
+          <p class="card-text white"><strong>{{promedio}}</strong></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 ">
+          <div class="card bg-danger">
+            <div class="card-body">
+              <h3 class="card-title white"><i class="nc-icon nc-single-02"></i>Top Vendedor</h3>
+              <p class="card-text white">Nombre: <strong>{{topVendedor?.name}}</strong></p>
+              <p class="card-text white">Record: <strong>{{topVendedor?.sales_count}}</strong></p>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title "><i class="nc-icon nc-single-02"></i>Low Vendedor</h3>
+              <p class="card-text ">Nombre: <br><strong>{{lowVendedor?.name}}</strong></p>
+              <p class="card-text ">Record: <strong>{{lowVendedor?.sales_count}}</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 ">
+          <div class="card bg-danger">
+            <div class="card-body">
+              <h3 class="card-title white"><i class="nc-icon nc-single-02"></i>Top marcas </h3>
+              <p class="card-text  white">Nombre: <strong>{{topMarca?.name}}</strong> </p>
+              <p class="card-text white ">Record: <strong>{{topMarca?.sales_count}}</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title "><i class="nc-icon nc-single-02"></i>Low Marca </h3>
+              <p class="card-text ">Nombre: <strong>{{lowMarca?.name}}</strong></p>
+              <p class="card-text ">Record: <strong>{{lowMarca?.sales_count}}</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Reporte</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Fechas:</span>
+          <span class="input-group-text">Inicial:</span>
+
+
+          <ngx-datepicker  name="data1" #data1="ngModel" type="text" [(ngModel)]="date1" [options]="optionsD"></ngx-datepicker>
+
+
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Final:</span>
+
+          <ngx-datepicker name="data2" #data2="ngModel" [(ngModel)]="date2" [options]="optionsD"></ngx-datepicker>
+
+        </div>
+
+        <a [href]="reporteLink"  class="btn btn-danger" [hidden]="reporteLink == null">Descargar</a>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="Reporte()">Generar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

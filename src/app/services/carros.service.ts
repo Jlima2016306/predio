@@ -200,7 +200,101 @@ console.log(link)
 
 
 
-  //subir imagenASubir
+  //graficas
+  verAño(filters:any): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/salesPerYear'+filters,{headers: headersToken})
+
+  }
+
+  verMes(filters:any): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/salesPerMonth'+filters,{headers: headersToken})
+
+  }
+
+
+  promedioVentas(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/averageSale',{headers: headersToken})
+
+  }
+
+  ventasPorVendedor(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/salesPerSeller',{headers: headersToken})
+
+  }
+
+  marcaMasVendida(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/mostSoldBrand',{headers: headersToken})
+
+  }
+
+  marcaMenosVendida(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/leastSoldBrand',{headers: headersToken})
+
+  }
+
+  vendedorConMasVentas(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/topSeller',{headers: headersToken})
+
+  }
+
+  vendedorConMenosVentas(): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/stats/lowestSeller',{headers: headersToken})
+
+  }
+
+
+  Reporte(filters:any): Observable<any>{
+
+
+
+    let headersToken = this.headersVariable.set('Authorization','Bearer '+ this.getToken());
+
+    return this._http.get(this.url + '/export/sales'+filters,{headers: headersToken})
+
+  }
+
+
+
 
 
 }
