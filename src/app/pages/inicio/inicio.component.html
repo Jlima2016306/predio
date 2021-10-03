@@ -1,0 +1,921 @@
+<div class="page-header page-header-xs" style="background-image: url('../assets/img/sections/clark-street-mercantile.jpg');">
+  <div class="filter"></div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+
+
+
+
+      <ul class="nav justify-content-center" style="margin-top:2em;font-size:2em;color:rgb(255, 166, 0)">
+        <li class="nav-item">
+          <a class="nav-link " [ngClass]="{h4:!Inicio,focus:!Inicio,infocus:Inicio}" href="javascript:;" (click)="CambiarVentana(1);verCarros();"><strong>Inicio</strong></a>
+        </li>
+        <li *ngIf="rol == 1 ||rol == 2 "  class="nav-item infocus">
+          <a class="nav-link"  [ngClass]="{h4:!ver_mis_autos,focus:!ver_mis_autos,infocus:ver_mis_autos}"  href="javascript:;" (click)="CambiarVentana(3);verVentas()"><strong>Ver Mis ventas</strong></a>
+        </li>
+
+      </ul>
+
+        <hr>
+    </div>
+
+  </div>
+
+
+
+
+<div style="background-color: rgb(255, 255, 255);text-align:center" class="row"  [hidden]="Inicio">
+
+  <button *ngIf="rol == 1" type="button" style="margin-bottom:1.5em;text-align:left;" class="btn btn-success btn-lg"  data-toggle="modal" data-target=".bd-example-modal-lg">Crear</button><br>
+
+  <hr style="background-color: red; color:red;">
+
+  <div style="margin: 1em ;"  class="input-group mb-3">
+    <h2 style="text-align:center; color:rgb(255, 166, 0);margin: 1em 44%"><strong>Buscar
+    </strong></h2>
+
+    <div style="margin: 1em 46%" class="custom-control custom-switch">
+
+      <input (click)="buscarOn()" type="checkbox" class="custom-control-input" id="customSwitches">
+      <label class="custom-control-label" for="customSwitches">On</label>
+    </div>
+
+
+
+<!-- barra de busqueda-->
+<div class="buscadores" [ngClass]='{buscar:buscar,inbuscar:!buscar}' [hidden]='buscar'>
+
+  <div class="form-group" *ngIf="rol == 1">
+    <label for="exampleInputEmail1">Vendedor </label>
+
+    <input  (change)="UsuariosV()" style="text-align:center;
+    box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+    name="vende" #vende="ngModel" [(ngModel)]="emailV">
+    <small id="emailHelp" class="form-text text-muted">Coloque el gmail del vendedor.</small>
+
+
+    <select name="sellerV" #sellerV="ngModel" [(ngModel)]="Vendedor" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+      <option  value="0" selected>Ninguno</option>
+
+      <option  *ngFor="let use of VendedoresV" value={{use.id}}>{{use.name}}</option>
+    </select>
+    <small id="emailHelp" class="form-text text-muted">Escoja al Vendedor.</small>
+
+
+
+  </div>
+
+    <div  class="input-group input-group-sm mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Ubicacion</span>
+      <input type="text" class="form-control form-control-sm  col-md-5 " placeholder="" aria-label="location" aria-describedby="basic-addon1"
+      name="location"  #location="ngModel" [(ngModel)]="busquedaData.location">
+
+
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">color</span>
+      <input type="text" class="form-control form-control-sm  " placeholder="" aria-label="Username" aria-describedby="basic-addon1"
+      name="color"  #color="ngModel" [(ngModel)]="busquedaData.color">
+    </div>
+
+    <div *ngIf="rol != 0" class="input-group mb-3">
+      <span class="input-group-text">Rango de Precio: Entre</span>
+
+      <input type="number" [(ngModel)]="PrecioRange.min"  class="form-control form-control-sm  col-md-1" placeholder="Precio Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number" [(ngModel)]="PrecioRange.max" class="form-control form-control-sm col-md-1" placeholder="Precio maximo" aria-label="Server">
+
+
+      <ngx-slider [(value)]="PrecioRange.min" [(highValue)]="PrecioRange.max" [options]="options"></ngx-slider>
+      <label>{{PrecioRange.max}}</label>
+
+    </div>
+
+    <div *ngIf="rol != 0" class="input-group mb-3">
+      <span class="input-group-text">Rango de Motor: Entre</span>
+
+      <input type="number"  [(ngModel)]="MotorRange.min" class="form-control form-control-sm  col-md-1" placeholder="Motor Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"   [(ngModel)]="MotorRange.max"  class="form-control form-control-sm  col-md-1" placeholder="Motor maximo" aria-label="Server">
+
+      <ngx-slider [(value)]="MotorRange.min" [(highValue)]="MotorRange.max" [options]="options"></ngx-slider>
+      <label>{{MotorRange.max}}</label>
+
+    </div>
+
+
+
+
+    <div  class="input-group mb-3">
+      <span class="input-group-text">Rango de Años: Entre</span>
+
+      <input type="number"  [(ngModel)]="AnnosRange.min" class="form-control form-control-sm col-md-1" placeholder="Año Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"  [(ngModel)]="AnnosRange.max" class="form-control form-control-sm  col-md-1" placeholder="Año maximo" aria-label="Server">
+
+
+      <ngx-slider [(value)]="AnnosRange.min" [(highValue)]="AnnosRange.max" [options]="optionsAnnos"></ngx-slider>
+      <label>{{AnnosRange.max}}</label>
+
+
+    </div>
+
+
+    <div *ngIf="rol != 0" class="input-group mb-3">
+      <span class="input-group-text">Rango de Cilindraje: Entre</span>
+
+      <input type="number"  [(ngModel)]="CilindrajeRange.min" class="form-control form-control-sm  col-md-1" placeholder=" Minimo" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"  [(ngModel)]="CilindrajeRange.max"  class="form-control form-control-sm col-md-1" placeholder=" maximo" aria-label="Server">
+
+
+      <ngx-slider [(value)]="CilindrajeRange.min" [(highValue)]="CilindrajeRange.max" [options]="optionsPuertas"></ngx-slider>
+      <label>{{PrecioRange.max}}</label>
+
+    </div>
+
+
+    <div *ngIf="rol != 0" class="input-group mb-3">
+      <span class="input-group-text">Rango de Puertas: Entre</span>
+
+      <input type="number"  [(ngModel)]="PuertasRange.min" class="form-control form-control-sm col-md-1" placeholder="Puertas Minimas" aria-label="Username">
+      <span class="input-group-text">y</span>
+      <input type="number"  [(ngModel)]="PuertasRange.max" class="form-control form-control-sm  col-md-1" placeholder="Puertas maximas" aria-label="Server">
+
+
+      <ngx-slider [(value)]="PuertasRange.min" [(highValue)]="PuertasRange.max" [options]="optionsPuertas"></ngx-slider>
+      <label>{{PrecioRange.max}}</label>
+
+    </div>
+
+
+
+    <div class="input-group mb-3">
+
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Combustible</span>
+      <select name="role_id" #role_id="ngModel" [(ngModel)]="busquedaData.fuel_type_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+        <option  value="0" selected>Ninguno</option>
+        <option *ngFor="let combustible of combustible" value={{combustible.fuel_type_id}}>{{combustible.name}}</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Marca</span>
+      <select name="role_id" #role_id="ngModel" [(ngModel)]="busquedaData.marca" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+        <option  value="0" selected>Ninguno</option>
+        <option  *ngFor="let marca of marcas" value={{marca.brand_id}}>{{marca.name}}</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Modelo</span>
+      <select name="role_id" #role_id="ngModel" [(ngModel)]="busquedaData.model_id	" class="custom-select" id="inputGroupSelect01">
+        <option  value="0" selected>Ninguno</option>
+        <option *ngFor="let model of modelo" value={{model.model_id}}>{{model.name}}</option>
+      </select>
+    </div>
+
+    <button type="button" style="margin-right: 2em;"class="btn btn-lg btn-primary" (click)="busqueda();" >Iniciar Busqueda <i class="nc-icon nc-zoom-split"></i></button>
+    <button type="button" class="btn btn-secondary btn-lg" (click)="verCarros()" >Refrescar</button>
+
+
+
+
+          <hr>
+
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+</div>
+
+  <div class="row"  style="margin: 2em " [hidden]="Inicio">
+    <div style="margin-right: 0.4em;">
+      <label  style="margin-left: 1em; text-align: right" ><strong>Ordenar Por  </strong></label>
+
+    </div>
+    <div>
+      <select style="text-decoration: none;" (change)="busqueda();vehicles = null" name="value" #value="ngModel" [(ngModel)]="valuesB.value" class="form-control form-control-sm  col-md-12">
+        <option  style="text-decoration: none;"  value="" selected>Ninguno  </option>
+
+        <option *ngIf="rol != 0" style="text-decoration: none;"   value="price" >Precio </option>
+        <option *ngIf="rol != 0" style="text-decoration: none;"   value="cylinders" >cilindros  </option>
+        <option *ngIf="rol != 0"  style="text-decoration: none;"  value="doors" >puertas </option>
+        <option style="text-decoration: none;"   value="year" >vehículos por año </option>
+        <option  style="text-decoration: none;"   value="created_at" >Ingreso </option>
+        <option  *ngIf="rol != 0" style="text-decoration: none;"  value="engine" >CC del motor. </option>
+
+
+      </select>
+    </div>
+    <div>
+      <select style="text-decoration: none;" (change)="busqueda();vehicles = null" name="sort" #sort="ngModel" [(ngModel)]="valuesB.sort" class="form-control form-control-sm  col-md-12">
+        <option style="text-decoration: none;"   value="" selected>ascendente  </option>
+        <option style="text-decoration: none;"   value="-" >descendente </option>
+
+
+
+      </select>
+    </div>
+
+
+
+  </div>
+
+
+
+  <div class='row'  [hidden]="Inicio">
+
+      <img *ngIf="vehicles == null" style="width: 20%; height:20%;display:block;
+      margin:auto;" class="card-img-top" src='../../assets/cargando.gif' alt="Card image cap">
+
+
+
+    <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 mb-4" *ngFor="let car of vehicles ">
+
+
+
+      <div class="card mb-4 border-danger " >
+        <div class="card-header text-center border-danger">
+
+          <img class="card-img-top" [src]='car.image' alt="Card image cap">
+
+          <strong>{{ car.model.name }}<br></strong>
+          {{ car.color }}
+          {{ car.fuel_type.name }}<br>
+
+          {{ car.year }}<br>
+
+          {{ car.price }}<br>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button *ngIf="rol != 0" type="button" class="btn btn-outline-warning"   data-toggle="modal" data-target="#verUsuario" (click)="VerUser(car.vehicle_id);">Ver</button>
+            <button *ngIf="(rol == 2) && car.sold != true" type="button" class="btn btn-outline-warning"   data-toggle="modal" data-target="#vender" (click)="VerUser(car.vehicle_id);">Vender</button>
+            <button *ngIf="(rol == 2) && car.sold == true" type="button" class="btn btn-outline-warning"   data-toggle="modal" data-target="#vender" disabled>Vendido</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" [hidden]="Inicio">
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li [ngClass]="{'active':page.active,'disabled':page.url === null}" *ngFor="let page of pagination" class="page-item">
+          <a  class="page-link" href="javascript:;" (click)="UsersPaginations(page.url);vehicles = null" >{{page.label.replace('laquo', '').replace('raquo', '').replace('&', '').replace(';', '')}}</a></li>
+
+      </ul>
+    </nav>
+
+    <div style="margin-right: 0.4em;">
+      <label  style="margin-left: 1em; text-align: right" ><strong>Ver  </strong></label>
+
+    </div>
+    <div>
+      <select style="text-decoration: none;" (change)="verCarros();vehicles = null" name="id" #id="ngModel" [(ngModel)]="totals.id" class="form-control form-control-sm  col-md-12">
+        <option style="text-decoration: none;"   *ngFor="let number of pag" >{{number}}</option>
+      </select>
+    </div>
+    <div style="margin-left: 0em;">
+      <label  style="margin-left: 0.4em; text-align: right" ><strong> por Pag.  </strong></label>
+
+    </div>
+
+  </div>
+
+  <!--Ver mis ventas-->
+
+  <!--Busqueda venta-->
+  <div class="row" [hidden]="ver_mis_autos">
+
+    <div class="col-sm">
+      <form>
+        <div class="form-group" *ngIf="rol == 1">
+          <label for="exampleInputEmail1">Vendedor </label>
+
+          <input  (change)="UsuariosV()" style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="identification" #identification="ngModel" [(ngModel)]="emailV">
+          <small id="emailHelp" class="form-text text-muted">Coloque el gmail del vendedor.</small>
+
+
+          <select name="seller" #seller="ngModel" [(ngModel)]="ventasBusqueda.seller_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+            <option  value="0" selected>Ninguno</option>
+
+            <option  *ngFor="let use of VendedoresV" value={{use.id}}>{{use.name}}</option>
+          </select>
+          <small id="emailHelp" class="form-text text-muted">Escoja al Vendedor.</small>
+
+
+
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Comprador </label>
+
+          <input  (change)="UsuariosV()" style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="comprador" #comprador="ngModel" [(ngModel)]="emailC">
+          <small id="emailHelp" class="form-text text-muted">Coloque el gmail del Comprador.</small>
+
+
+          <select name="seller" #seller="ngModel" [(ngModel)]="ventasBusqueda.buyer_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+            <option  value="0" selected>Ninguno</option>
+
+            <option  *ngFor="let use of CompradoresV" value={{use.id}}>{{use.name}}</option>
+          </select>
+
+          <small id="emailHelp" class="form-text text-muted">Escoja al comprador.</small>
+
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Fechas:</span>
+          <span class="input-group-text">Inicial:</span>
+
+
+          <ngx-datepicker  name="data1" #data1="ngModel" type="text" [(ngModel)]="date1" [options]="optionsD"></ngx-datepicker>
+          <span class="input-group-text">Final:</span>
+
+          <ngx-datepicker name="data2" #data2="ngModel" [(ngModel)]="date2" [options]="optionsD"></ngx-datepicker>
+
+
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Marca</span>
+          <select name="role_id" #role_id="ngModel" [(ngModel)]="ventasBusqueda.brand_id	" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+            <option  value="0" selected>Ninguno</option>
+            <option  *ngFor="let marca of marcas" value={{marca.brand_id}}>{{marca.name}}</option>
+          </select>
+        </div>
+
+        <div *ngIf="rol != 0" class="input-group mb-3">
+          <span class="input-group-text">Rango de Precio:</span>
+
+          <ngx-slider [(value)]="MontoRango.min" [(highValue)]="MontoRango.max" [options]="options"></ngx-slider>
+          <label>{{MontoRango.max}}</label>
+
+        </div>
+
+
+
+
+
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Modelo</span>
+          <select name="role_id" #role_id="ngModel" [(ngModel)]="ventasBusqueda.model_id	" class="custom-select" id="inputGroupSelect01">
+            <option  value="0" selected>Ninguno</option>
+            <option *ngFor="let model of modelo" value={{model.model_id}}>{{model.name}}</option>
+          </select>
+        </div>
+      </form>
+
+    <button type="button" style="margin-right: 2em;"class="btn btn-lg btn-primary" (click)="verVentas();vehicles = null" >Iniciar Busqueda <i class="nc-icon nc-zoom-split"></i></button>
+
+    <button type="button" class="btn btn-secondary btn-lg" (click)="verVentasR()" >Refrescar</button>
+
+    </div>
+
+
+
+</div>
+
+<!--Ordenar venta-->
+
+<div class="row"  style="margin: 2em " [hidden]="ver_mis_autos">
+  <div style="margin-right: 0.4em;">
+    <label  style="margin-left: 1em; text-align: right" ><strong>Ordenar Por  </strong></label>
+
+  </div>
+  <div>
+    <select style="text-decoration: none;" (change)="verVentas();vehicles = null" name="value" #value="ngModel" [(ngModel)]="valuesBventas.value" class="form-control form-control-sm  col-md-12">
+      <option  style="text-decoration: none;"  value="" selected>Ninguno  </option>
+
+      <option  style="text-decoration: none;"   value="amount" >Precio </option>
+
+      <option  style="text-decoration: none;"   value="created_at" >Ingreso </option>
+
+
+    </select>
+  </div>
+  <div>
+    <select style="text-decoration: none;" (change)="verVentas();vehicles = null" name="sort" #sort="ngModel" [(ngModel)]="valuesBventas.sort" class="form-control form-control-sm  col-md-12">
+      <option style="text-decoration: none;"   value="" selected>ascendente  </option>
+      <option style="text-decoration: none;"   value="-" >descendente </option>
+
+
+
+    </select>
+  </div>
+
+
+
+</div>
+
+<!--Items venta-->
+
+  <div class="row" [hidden]="ver_mis_autos">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-xl-4 mb-3" *ngFor="let car of ventaModel ">
+
+
+
+        <div class="card mb-12 border-danger " >
+          <div class="card-header text-center border-danger">
+
+            <img class="card-img-top" [src]='car.vehicle.image' alt="Card image cap">
+
+            <div class="row">
+              <div class="col-sm">
+                <form>
+
+                  <div class="form-group">
+                    <h5>Vehiculo</h5>
+                    <label for="exampleInputEmail1"><strong>Model</strong></label><br>
+                    <label for="exampleInputEmail1">{{car?.vehicle?.model?.name}}</label><br>
+
+                    <label for="exampleInputEmail1"><strong>Brand</strong></label><br>
+                    <label for="exampleInputEmail1">{{car?.vehicle?.model?.brand?.name}}</label><br>
+
+                    <label for="exampleInputEmail1"><strong>Year</strong></label><br>
+                    <label for="exampleInputEmail1">{{car?.vehicle?.year}}</label><br>
+
+
+
+
+                  </div>
+                  <!--             ------------------------------>
+
+                </form>
+              </div>
+              <div class="col-sm">
+
+                <form>
+                  <div class="form-group">
+                    <h5>Comprador</h5>
+                    <label for="exampleInputEmail1"><strong>Nombre</strong></label><br>
+                    <label for="exampleInputEmail1">{{car?.buyer?.name}}</label><br>
+
+                    <label for="exampleInputEmail1"><strong>Telefono</strong></label><br>
+                    <label for="exampleInputEmail1">{{car?.buyer?.phone_number}}</label><br>
+
+                    <label for="exampleInputEmail1"><strong>Correo</strong></label><br>
+                    <label style="margin-right: 0.1em;" for="exampleInputEmail1">{{car?.buyer?.email}}</label><br>
+
+                  </div>
+                </form>
+
+              </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="col-sm">
+                <h4 for="exampleInputEmail1"><strong>Price</strong></h4>
+                <h4 for="exampleInputEmail1">{{car?.vehicle?.price}}</h4><br>
+
+
+
+
+              </div>
+            </div>
+
+            <strong><label>Vendedor</label></strong>
+            <p >{{car?.vehicle?.seller?.name}}</p>
+
+          </div>
+        </div>
+      </div>
+
+
+
+  </div>
+
+
+
+  <div class="row " [hidden]="Ver_en_venta">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      ver_mis_autos
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="verUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Ver Carro</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="ModalVehicles = null" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <img *ngIf="ModalVehicles == null" style="width: 20%; height:20%;display:block;
+        margin:auto;" class="card-img-top" src='../../assets/cargando.gif' alt="Card image cap">
+
+        <form class="register-form"  *ngIf="ModalVehicles != null">
+
+          <div class="row ">
+            <div class="col-sm">
+              <strong><label>Brand	</label></strong>
+              <p >{{ModalVehicles?.model?.brand?.name	}}</p>
+              <strong><label>Model</label></strong>
+              <p >{{ModalVehicles?.model?.name}}</p>
+              <strong><label>year</label></strong>
+              <p >{{ModalVehicles?.year}}</p>
+              <strong><label>color</label></strong>
+              <p >{{ModalVehicles?.color}}</p>
+
+          </div>
+            <div class="col-sm">
+              <img class="card-img-top" [src]='ModalVehicles?.image' alt="Card image cap">
+
+            </div>
+
+          </div>
+
+          <div class="row ">
+            <div class="col-sm">
+              <strong><label>location</label></strong>
+              <p >{{ModalVehicles?.location}}</p>
+              <strong><label>engine</label></strong>
+              <p >{{ModalVehicles?.engine}}</p>
+
+
+          </div>
+
+          <div class="col-sm">
+            <strong><label>cylinders	</label></strong>
+            <p >{{ModalVehicles?.cylinders}}</p>
+            <strong><label>doors</label></strong>
+            <p >{{ModalVehicles?.doors}}</p>
+            <strong><label>fuel_type	</label></strong>
+            <p >{{ModalVehicles?.fuel_type?.name	}}</p>
+          </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+
+              <strong><label>description</label></strong>
+              <p >{{ModalVehicles?.description}}</p>
+              <strong><label>price</label></strong>
+              <p >{{ModalVehicles?.price}}</p>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer"  *ngIf="ModalVehicles != null">
+        <strong><label>Vendedor</label></strong>
+        <p >{{ModalVehicles?.seller?.name}}</p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--Crear-->
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ingresar Carro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+
+        <!-- Imagenes-->
+
+  <div class="row " >
+    <div class="col-sm">
+
+      <div *ngIf="!previsualizacion" class="fileinput-new thumbnail img-raised">
+        <img  style="max-width: 15em ;max-height: 34em ;margin-right: 3em;" src="https://lumation-communication-suite.s3.us-east-2.amazonaws.com/demoapi/images/2021-09-22-14-25-55-9837.jpg" alt="...">
+    </div>
+
+
+      <div *ngIf="previsualizacion"  class="fileinput-preview fileinput-exists thumbnail img-raised">
+        <img  style="max-width: 15em ;max-height: 34em ;margin-right: 3em;"[src]="previsualizacion" alt="...">
+      </div>
+
+      <div class="custom-file">
+        <input class="form-control " (change)="subirImagen($event)" type="file" id="formFile">
+      </div>
+
+
+
+    </div>
+
+    <div class="col-sm">
+
+
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Brand </label>
+
+
+          <select name="marca" #marca="ngModel" [(ngModel)]="CarroModel.marca" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+            <option  *ngFor="let marca of marcas" value={{marca.brand_id}}>{{marca.name}}</option>
+          </select>
+
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Model</label>
+          <select name="carros" #carros="ngModel" [(ngModel)]="CarroModel.model_id" class="custom-select" id="inputGroupSelect01">
+            <option *ngFor="let model of modelo" value={{model.model_id}}>{{model.name}}</option>
+          </select>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+        </div>
+
+
+
+      </form>
+
+     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <form>
+        <div style="margin-top:1em" class="form-group">
+          <label for="exampleInputEmail1">año</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="year" #year="ngModel" [(ngModel)]="CarroModel.year">
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">CC de Motor</label>
+          <input type="Number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="engine" #engine="ngModel" [(ngModel)]="CarroModel.engine">
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+
+      </form>
+
+    </div>
+    <div class="col-sm">
+      <form>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">color</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="color" #color="ngModel" [(ngModel)]="CarroModel.color">
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Price</label>
+          <input type="Number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="price" #price="ngModel" [(ngModel)]="CarroModel.price">
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-sm">
+      <form>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Descripcion </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="description" #description="ngModel" [(ngModel)]="CarroModel.description">
+          >
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Location </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="Location" #Location="ngModel" [(ngModel)]="CarroModel.location">
+          >
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Combustible </label>
+
+          <select name="role_id" #role_id="ngModel" [(ngModel)]="CarroModel.fuel_type_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+            <option *ngFor="let combustible of combustible" value={{combustible.fuel_type_id}}>{{combustible.name}}</option>
+          </select>
+
+
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+
+
+
+
+
+
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Vendedor </label>
+
+          <input  (change)="UsuariosV()" style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="identification" #identification="ngModel" [(ngModel)]="email">
+          <small id="emailHelp" class="form-text text-muted">Coloque el gmail del vendedor.</small>
+
+
+          <select name="seller" #seller="ngModel" [(ngModel)]="CarroModel.seller_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+            <option  *ngFor="let use of Usuario" value={{use.id}}>{{use.name}}</option>
+          </select>
+
+
+          <small id="emailHelp" class="form-text text-muted">Elija al usuario</small>
+
+          <small id="emailHelp" class="form-text text-muted">No dejar vacio</small>
+        </div>
+      </form>
+
+
+    </div>
+
+    <div class="col-sm">
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Puertas </label>
+          <input type="Number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="doors" #doors="ngModel" [(ngModel)]="CarroModel.doors">
+
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+      </form>
+
+    </div>
+    <div class="col-sm">
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Cilindros </label>
+          <input type="Number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          name="cylinder" #cylinder="ngModel" [(ngModel)]="CarroModel.cylinders">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  (click)="crearCarro()">Save changes</button>
+      </div>    </div>
+  </div>
+</div>
+
+
+<!--vender-->
+
+<div class="modal fade" id="vender" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Vender</h1>
+
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="ModalVehicles = null" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <img *ngIf="ModalVehicles == null" style="width: 20%; height:20%;display:block;
+        margin:auto;" class="card-img-top" src='../../assets/cargando.gif' alt="Card image cap">
+
+        <form class="register-form"  *ngIf="ModalVehicles != null">
+
+
+
+          <div class="row ">
+            <div class="col-sm">
+              <div class="row">
+                <div class="col-sm">
+                  <strong><label>Marca	</label></strong>
+                  <p >{{ModalVehicles?.model?.brand?.name	}}</p>
+
+                </div>
+                <div class="col-sm">
+                  <strong><label>Model</label></strong>
+                  <p >{{ModalVehicles?.model?.name}}</p>
+                </div>
+              </div>
+
+              <img class="card-img-top" [src]='ModalVehicles?.image' alt="Card image cap">
+
+          </div>
+
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm">
+
+              <div class="form-group">
+                <h3 for="exampleInputEmail1">Comprador </h3>
+
+                <input  (change)="UsuariosV()" style="text-align:center;
+                box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+                name="identification" #identification="ngModel" [(ngModel)]="email">
+                <small id="emailHelp" class="form-text text-muted">Cologe el gmail.</small>
+
+
+
+
+                <select name="seller" #seller="ngModel" [(ngModel)]="venta.buyer_id" class="custom-select form-control form-control-sm" id="inputGroupSelect01">
+                  <option  *ngFor="let use of Usuario" value={{use.id}}>{{use.name}}</option>
+                </select>
+
+
+
+                <small id="emailHelp" class="form-text text-muted"> Elija al usuario comprador.</small>
+              </div>
+            </div>
+          </div>
+
+
+
+        </form>
+      </div>
+
+      <div class="modal-footer"  *ngIf="ModalVehicles != null">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success"  (click)="Vender(ModalVehicles.vehicle_id)">Vender</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

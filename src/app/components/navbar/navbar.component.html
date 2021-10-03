@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg  fixed-top nav-down navbar-transparent" color-on-scroll="300" >
+  <div class="container">
+    <div class="navbar-translate">
+
+      <a class="navbar-brand" routerLink="/Inicio"  title="Paper Kit 2 PRO" data-placement="bottom" >
+        Predio Virtual
+      </a>
+
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-bar bar1"></span>
+        <span class="navbar-toggler-bar bar2"></span>
+        <span class="navbar-toggler-bar bar3"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" data-nav-image="../assets/img/blurred-image-1.jpg" data-color="orange">
+      <ul class="navbar-nav ml-auto">
+
+
+        <li class="dropdown nav-item" *ngIf='rol== null'>
+            <a routerLink="/Login" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+              Login </a>
+        </li>
+
+
+        <li class="dropdown nav-item" *ngIf='rol== null'>
+          <a routerLink="/Registro" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+            Register </a>
+        </li>
+
+        <li class="dropdown nav-item" *ngIf='rol== 1'>
+          <a routerLink="/Usuario" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+            Ver mis Usuarios </a>
+        </li>
+
+        <li class="dropdown nav-item" *ngIf='rol== 1'>
+          <a routerLink="/stats" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+            Ver mis Estadisticas </a>
+        </li>
+
+
+
+
+        <li class="dropdown nav-item" *ngIf='rol != null'>
+          <a href="#" class="dropdown-toggle nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown">
+            Opciones
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-danger" aria-labelledby="navbarDropdownMenuLink">
+            <button routerLink="/Perfil" class="dropdown-item" data-scroll="true" data-id="#headers" href="../sections.html#headers">
+              <i class="nc-icon nc-tile-56"></i>
+              Perfil
+            </button>
+            <button routerLink="/Login"  (click)='endSesion()' class="dropdown-item" data-scroll="true" data-id="#features" href="../sections.html#features">
+              <i class="nc-icon nc-settings"></i>
+              Cerrar Sesion
+            </button>
+
+
+          </div>
+        </li>
+
+        <!-- <li class="nav-item">
+        <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank">
+          <i class="fab fa-twitter"></i>
+          <p class="hidden-lg-up">Twitter</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank">
+          <i class="fab fa-facebook-square"></i>
+          <p class="hidden-lg-up">Facebook</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
+          <i class="fab fa-instagram"></i>
+          <p class="hidden-lg-up">Instagram</p>
+        </a>
+      </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>

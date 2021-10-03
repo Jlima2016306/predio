@@ -1,0 +1,150 @@
+
+
+<div class="wrapper" >
+  <div style="background-image: url('../assets/img/car.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="profile-picture">
+          <div class="fileinput fileinput-new" data-provides="fileinput">
+
+          </div>
+        </div>
+      </div>
+      <br><br>      <br>
+      <br><br>
+
+
+      <div class="card" style="width:auto; margin:auto auto;width: 20rem;">
+        <img style="width:99%; height:99%" class="card-img-top"src="../assets/img/faces/user.png" alt="Card image cap">
+
+        <div class="card-body">
+          <div class="name" >
+            <h1 class="tittle" style="color:azure;margin-top:0%;text-align:center"><small>Perfil</small></h1>
+
+          </div>
+          <hr style="color:black">
+          <div class="btn-group" style="width:100%; height:100%" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#verUsuario">Ver Datos </button>
+            <button *ngIf="rol != 'Administrador'" type="button" class="btn btn-warning" data-toggle="modal" data-target="#EditUser" >Editar Datos</button>
+          </div>
+
+        </div>
+      </div>
+      <br />
+      <br><br>      <br>
+      <br><br><br>
+
+      <!-- Tab panes -->
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Editar Usuario--->
+<div class="modal fade" id="EditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Editar Usuario</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="register-form">
+
+          <strong><label>Name</label></strong>
+
+          <input  style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);" type="text" class="form-control" placeholder="name"
+          name="name" #name="ngModel" [(ngModel)]="ModalUser.name">
+
+          <strong><label>Phone</label></strong>
+
+          <input   style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);"type="text" class="form-control" placeholder="phone_number"
+          name="phone_number" #phone_number="ngModel" [(ngModel)]="ModalUser.phone_number">
+
+          <strong><label>Identification</label></strong>
+
+          <input   style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="identification" #identification="ngModel" [(ngModel)]="ModalUser.identification">
+
+
+
+          <input   style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);"type={{type}}    [ngClass]="{'is-valid':comprobador(ModalUser.password)}" required="true"  pattern=".{8,}" class="form-control" placeholder="New Password"
+          name="password" #password="ngModel" [(ngModel)]="ModalUser.password">
+
+          <label style="color:black"><strong>Debe tener 8 letras, una minuscula y una mayuscula, un numero y un simbolo</strong> </label>
+
+
+          <input   style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);" type={{type}} [ngClass]="{'is-valid': ModalUser.password== ModalUser.password_confirmation,'is-invalid': ModalUser.password != ModalUser.password_confirmation}" class="form-control is-valid" placeholder="Confirm Password"
+          name="password_confirmation" #password_confirmation="ngModel" [(ngModel)]="ModalUser.password_confirmation">
+
+          <div class="custom-control custom-checkbox mb-3">
+            <input class="custom-control-input" id="customCheck1" type="checkbox" (click)="togglePass()">
+            <label class="custom-control-label" for="customCheck1" style="color: black"><strong>Show Password</strong></label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="EditUser(ModalUser.id)">Editar Usuario</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ver Usuario--->
+<div class="modal fade" id="verUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Ver Usuario</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="register-form">
+          <strong style="text-align:center;"><label>name</label></strong>
+          <input  style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);" type="text" disable="true" class="form-control" placeholder="name"
+          name="name" #name="ngModel" [(ngModel)]="ModalUser.name">
+
+          <strong><label>Email</label></strong>
+          <input  style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);" type="text" disable="true" class="form-control" placeholder="name"
+          name="Email" #Email="ngModel" [(ngModel)]="ModalUser.email">
+
+
+          <strong><label >phone_number</label></strong>
+
+          <input  disable style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218);"type="text" class="form-control" placeholder="phone_number"
+          name="phone_number" #phone_number="ngModel" [(ngModel)]="ModalUser.phone_number">
+
+          <strong><label>Identification</label></strong>
+
+          <input disable  style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          name="identification" #identification="ngModel" [(ngModel)]="ModalUser.identification">
+
+          <strong><label>ROL</label></strong>
+
+          <input disable  style="text-align:center;
+          box-shadow: 0.1px 0.2px rgb(225, 218, 218)"type="text" required="true"  class="form-control" placeholder="Identification"
+          value={{rol}}>
+
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+

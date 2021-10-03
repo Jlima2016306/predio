@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <div class="page-header"style="background-image: url('../assets/img/car.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+      <br>      <br>
+      <br>      <br>      <br>      <br>
+      <br>      <br>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+          <div class="card card-register" style="background-color: #E8E8DF;">
+            <h3 class="card-title">Welcome</h3><br><br>
+            <form class="register-form" >
+              <input type="email" class="form-control no-border" placeholder="Email"
+              name="email" #email="ngModel" [(ngModel)]="user.email">>
+              <input type={{type}} class="form-control no-border" placeholder="Password"
+              name="password" #password="ngModel" [(ngModel)]="user.password">
+              <div class="custom-control custom-checkbox mb-3">
+                <input class="custom-control-input" id="customCheck1" type="checkbox" (click)="togglePass()">
+                <label class="custom-control-label" for="customCheck1" style="color: black">Show Password</label>
+              </div>
+              <button class="btn btn-block btn-round" (click)="login()">Iniciar</button>
+            </form>
+            <div class="forgot">
+              <a routerLink="/Registro" class="btn btn-link btn-danger">Registrate Ahora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-footer text-center">
+        <h6>&copy; <script>
+            document.write(new Date().getFullYear())
+          </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim</h6>
+      </div>
+    </div>
+  </div>
+</div>
